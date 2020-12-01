@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     HttpClientModule
+  ],
+  exports:[
+    UserRegisterPageComponent, UserRegisterComponent
   ]
 })
 export class UserRegisterModule { }

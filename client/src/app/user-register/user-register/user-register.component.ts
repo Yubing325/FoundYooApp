@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IRegister } from '../models/IRegister';
 
 @Component({
@@ -11,6 +11,8 @@ export class UserRegisterComponent implements OnInit {
 
   endpoint: string = "https://localhost:5001";
   registerModel: IRegister;
+
+  @Output() cancelRegistration = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -26,11 +28,17 @@ export class UserRegisterComponent implements OnInit {
     this.http.post(this.endpoint+"/api/account/register", this.registerModel).subscribe
     (
       response =>{
-        console.log("register success!")
+        console.log("register success!");
+        this.cancel()
       },
       err => {
         console.error
       }
     )
   }
+
+  cancel(){
+    this.cancelRegistration.emit(false);
+  }
+
 }
