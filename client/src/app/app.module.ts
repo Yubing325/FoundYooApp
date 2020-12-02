@@ -14,6 +14,7 @@ import { NavComponent } from './nav/nav.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { SharedModule } from './_modules/shared.module';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from './_modules/shared.module';
     NavComponent,
     HomeComponent,
     MemberListComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
