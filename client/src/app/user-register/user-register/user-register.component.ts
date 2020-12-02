@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from 'src/app/_services/account.service';
 import { IRegister } from '../models/IRegister';
 
 @Component({
@@ -14,7 +16,7 @@ export class UserRegisterComponent implements OnInit {
 
   @Output() cancelRegistration = new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.registerModel = {
@@ -24,15 +26,15 @@ export class UserRegisterComponent implements OnInit {
   }
 
 
-  submit(){
-    this.http.post(this.endpoint+"/api/account/register", this.registerModel).subscribe
+  register(){
+    this.accountService.register(this.registerModel).subscribe
     (
       response =>{
         console.log("register success!");
         this.cancel()
       },
       err => {
-        console.error
+        this.toastr.error(err.error);
       }
     )
   }
