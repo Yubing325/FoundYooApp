@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import  {HttpClientModule} from '@angular/common/http';
+import  {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRegisterModule } from './user-register/user-register.module';
@@ -16,6 +16,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { SharedModule } from './_modules/shared.module';
 import { ListComponent } from './list/list.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { MemberCardComponent } from './members/member-card/member-card.component
     UserRegisterModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
