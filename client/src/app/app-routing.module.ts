@@ -7,24 +7,23 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { UserRegisterPageComponent } from './user-register/user-register-page/user-register-page.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'members', component: MemberListComponent},
-  {path: 'members/:username', component: MemberDetailComponent},
-  {path: 'member/edit', component: MemberEditComponent},
-  {path: 'list', component: ListComponent},
+ 
   
-  // {
-  //   path:'',
-  //   runGuardsAndResolvers:'always',
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
-  //     {path: 'members/:username', component: MemberDetailComponent},
-  //     {path: 'list', component: ListComponent},
-  //   ]
-  // },
+  {
+    path:'',
+    runGuardsAndResolvers:'always',
+    canActivate: [AuthGuard],
+    children: [
+      {path: 'members', component: MemberListComponent},
+      {path: 'members/:username', component: MemberDetailComponent},
+      {path: 'member/edit', component: MemberEditComponent,canDeactivate: [PreventUnsavedChangesGuard]},
+      {path: 'list', component: ListComponent},
+    ]
+  },
   {path:'register', component: UserRegisterPageComponent },
   {path: '**', component: HomeComponent, pathMatch: 'full'}, //for 404 in the future
 ];
