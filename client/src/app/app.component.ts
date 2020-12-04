@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 import { UserService } from './_services/user.service';
 
 @Component({
@@ -7,9 +9,15 @@ import { UserService } from './_services/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+  
+  constructor(private accountService: AccountService){}
+  ngOnInit() {
+    this.setCurrentUser(); 
+  }
 
-  constructor(private userServirce: UserService){}
-
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('___user'));
+    this.accountService.setCurrentUser(user);
+  }
   
 }
