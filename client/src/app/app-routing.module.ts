@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { UserRegisterPageComponent } from './user-register/user-register-page/user-register-page.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'members', component: MemberListComponent},
   {path: 'members/:username', component: MemberDetailComponent},
+  {path: 'member/edit', component: MemberEditComponent},
   {path: 'list', component: ListComponent},
   
   // {

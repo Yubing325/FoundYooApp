@@ -17,6 +17,7 @@ import { SharedModule } from './_modules/shared.module';
 import { ListComponent } from './list/list.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './jwt.interceptor';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { JwtInterceptor } from './jwt.interceptor';
     MemberListComponent,
     MemberDetailComponent,
     ListComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
