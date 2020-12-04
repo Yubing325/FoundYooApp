@@ -9,20 +9,20 @@ import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  // {path: 'members', component: MemberListComponent},
-  // {path: 'members/:username', component: MemberDetailComponent},
-  // {path: 'list', component: ListComponent},
+  {path: 'members', component: MemberListComponent},
+  {path: 'members/:username', component: MemberDetailComponent},
+  {path: 'list', component: ListComponent},
   
-  {
-    path:'',
-    runGuardsAndResolvers:'always',
-    canActivate: [AuthGuard],
-    children: [
-      {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
-      {path: 'members/:username', component: MemberDetailComponent},
-      {path: 'list', component: ListComponent},
-    ]
-  },
+  // {
+  //   path:'',
+  //   runGuardsAndResolvers:'always',
+  //   canActivate: [AuthGuard],
+  //   children: [
+  //     {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
+  //     {path: 'members/:username', component: MemberDetailComponent},
+  //     {path: 'list', component: ListComponent},
+  //   ]
+  // },
   {path:'register', component: UserRegisterPageComponent },
   {path: '**', component: HomeComponent, pathMatch: 'full'}, //for 404 in the future
 ];

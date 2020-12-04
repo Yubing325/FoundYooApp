@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Data.Interfaces;
 using API.DTOs;
@@ -63,6 +64,15 @@ namespace API.Data
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
+        }
+
+        public async Task UpdateMember(string username, MemberUpdateDto updateDto)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+
+            _mapper.Map(updateDto, user);
+
+            Update(user);
         }
     }
 }
