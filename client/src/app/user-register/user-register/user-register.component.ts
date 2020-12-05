@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
@@ -25,10 +25,16 @@ export class UserRegisterComponent implements OnInit {
 
   initialForm(){
     this.registerForm = new FormGroup({
-      username: new FormControl(),
-      password: new FormControl(),
-      confirmPassword: new FormControl()
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
+      confirmPassword: new FormControl('', [this.matchValues('password')])
     })
+  }
+
+  matchValues(matchTo: string) : ValidatorFn{
+    return (control: AbstractControl) => {
+      return control?.value === control?.parent?.controls[matchTo].value? null : {isMatching:true}
+    }
   }
 
   register(){
