@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRegisterModule } from './user-register/user-register.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
@@ -40,7 +40,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
     BrowserAnimationsModule,
     UserRegisterModule,
     FormsModule,
-    
+    ReactiveFormsModule,
     UserRegisterModule,
     SharedModule
   ],
