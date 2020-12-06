@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
@@ -17,17 +17,18 @@ export class UserRegisterComponent implements OnInit {
   @Output() cancelRegistration = new EventEmitter();
   registerForm: FormGroup;
 
-  constructor(private accountService: AccountService, private toastr: ToastrService) { }
+  constructor(private accountService: AccountService, private toastr: ToastrService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initialForm();
   }
 
   initialForm(){
-    this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
-      confirmPassword: new FormControl('', [this.matchValues('password')])
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]],
+      confirmPassword: ['', [this.matchValues('password')]]
     })
   }
 
