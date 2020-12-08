@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
+import { User } from 'src/app/_models/user';
+import { UserParameters } from 'src/app/_models/userParameters';
+import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -13,22 +17,30 @@ export class MemberListComponent implements OnInit {
 
   members: Member[];
   pagination: Pagination;
-  pageNumber = 2;
-  pageSize = 5;
+  userParams: UserParameters;
+  user: User;
+  genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
 
-  constructor(private memberService: MembersService, private tostarService: ToastrService) { }
+  constructor(private memberService: MembersService, private tostarService: ToastrService,
+              private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      this.user = user;
+      this.userParams = new UserParameters(user);
+    })
+   }
 
   ngOnInit(): void {
     this.loadMembers();
   }
 
   pageChanged(event: any){
-    this.pageNumber = event.page;
+    this.userParams.pageNumber = event.page;
     this.loadMembers();
   }
 
   loadMembers(){
-    this.memberService.getMembers(this.pageNumber, this.pageSize).subscribe
+    this.memberService.setUserParams(this.userParams);
+    this.memberService.getMembers(this.userParams).subscribe
     (
       response => {
         this.members = response.result;
@@ -39,5 +51,7 @@ export class MemberListComponent implements OnInit {
       }
     )
   }
+
+
 
 }
