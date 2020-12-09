@@ -40,16 +40,16 @@ export class UserRegisterComponent implements OnInit {
 
   register(){
     console.log(this.registerForm.value);
-    // this.accountService.register(this.registerModel).subscribe
-    // (
-    //   response =>{
-    //     console.log("register success!");
-    //     this.cancel()
-    //   },
-    //   err => {
-    //     this.toastr.error(err.error);
-    //   }
-    // )
+    this.accountService.register(this.registerModel).subscribe
+    (
+      response =>{
+        console.log("register success!");
+        this.cancel()
+      },
+      err => {
+        this.toastr.error(err.error);
+      }
+    )
   }
 
   cancel(){
