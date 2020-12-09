@@ -18,6 +18,7 @@ export class MembersService {
   members: Member[] = [];
   user: User;
   userParams: UserParameters;
+  memberCache = new Map();
 
   constructor(private http: HttpClient) { }
 
@@ -46,14 +47,23 @@ export class MembersService {
 
 
   getMembers(userParams: UserParameters) {
-
+    //console.log(Object.values(userParams).join('-'));
+    let response = this.memberCache.get(Object.values(userParams).join('-'));
+    if(response){
+      return of(response);
+    }
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
     params = params.append('minAge', userParams.minAge.toString());
     params = params.append('maxAge', userParams.maxAge.toString());
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return this.getPaginationResult<Member[]>(params);
+    return this.getPaginationResult<Member[]>(params).pipe(
+      map(res => {
+        this.memberCache.set(Object.values(userParams).join('-'), res)
+        return res;
+      })
+    );
   }
 
   private getPaginationResult<T>(params: HttpParams) {
@@ -80,8 +90,15 @@ export class MembersService {
   }
 
   getMember(username: string) : Observable<Member>{
-    const member = this.members.find(t=>t.username === username);
-    if(member !== undefined) return of(member);
+    //console.log(this.memberCache);
+    const member =[...this.memberCache.values()].reduce((arr,elem)=>arr.concat(elem.result),[])
+                  .find((member:Member)=>member.username === username); //convert into an array
+    
+    if(member) {
+      return of(member);
+    }
+    
+    console.log(member);
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
