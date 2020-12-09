@@ -8,7 +8,8 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule  } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
 import {PaginationModule } from 'ngx-bootstrap/pagination';
-import {ButtonsModule} from 'ngx-bootstrap/buttons'
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago'
 
 
 
@@ -25,7 +26,8 @@ import {ButtonsModule} from 'ngx-bootstrap/buttons'
     NgxSpinnerModule,
     FileUploadModule,
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot() 
+    ButtonsModule.forRoot(),
+    TimeagoModule.forRoot() 
     
   ],
   exports:[
@@ -36,7 +38,8 @@ import {ButtonsModule} from 'ngx-bootstrap/buttons'
     NgxSpinnerModule,
     FileUploadModule,
     PaginationModule,
-    ButtonsModule
+    ButtonsModule,
+    TimeagoModule
     
   ]
 })
