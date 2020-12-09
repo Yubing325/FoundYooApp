@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+
 import { Member } from '../_models/member';
 import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
@@ -38,7 +39,10 @@ export class MembersService {
     this.userParams = params;
   }
 
- 
+  resetUserParams() {
+    this.userParams = new UserParameters(this.user);
+    return this.userParams;
+  }
 
 
   getMembers(userParams: UserParameters) {
