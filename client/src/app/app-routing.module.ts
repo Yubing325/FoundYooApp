@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TestErrorComponent } from './errors-test/test-error/test-error.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
     ]
   },
   {path:'register', component: UserRegisterPageComponent },
+  {path:'errors', component: TestErrorComponent},
   {path: '**', component: HomeComponent, pathMatch: 'full'}, //for 404 in the future
 ];
 

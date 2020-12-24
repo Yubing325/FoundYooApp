@@ -20,6 +20,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TestErrorComponent } from './errors-test/test-error/test-error.component';
+import { ErrorsInterceptor } from './_interceptors/errors.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
     ListComponent,
     MemberCardComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TestErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true},
     
   ],
   bootstrap: [AppComponent]
