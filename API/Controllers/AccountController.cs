@@ -30,9 +30,7 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                UserName = register.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmac.Key
+                UserName = register.Username.ToLower()
             };
 
             _context.Users.Add(user);
@@ -54,15 +52,6 @@ namespace API.Controllers
                         .Include(p => p.Photos)
                         .SingleOrDefaultAsync(u => u.UserName == loginDto.Username.ToLower());
             if (user == null) return Unauthorized("User not found");
-
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < ComputeHash.Length; i++)
-            {
-                if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
-            }
 
             return new UserDto
             {
